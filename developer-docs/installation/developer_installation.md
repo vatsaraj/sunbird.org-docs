@@ -22,11 +22,15 @@ The intended audience of this document is a person who is familiar with installi
 
 ## Prerequisites
 
+## Prerequisites
+
 1. **Software**: Install the following software: 
-   * [node](https://nodejs.org/en/download/) - Install the latest release version 8.11.2 LTS series
+   * [node](https://nodejs.org/dist/v8.11.2/) - Install the latest release version 8.11.2 LTS series
    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
-   * [git](https://git-scm.com/downloads) - Latest version  
+   * [git](https://git-scm.com/downloads) - Latest version. WINDOWS users ensure that you select the Git Bash option in the installation wizard.
    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
+   * (For WINDOWS installation only)
+   		* [ng](https://cli.angular.io/) - Install Angular CLI
 
 1. **API Keys**
 The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. 
@@ -52,37 +56,38 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>. If you face any problems using the Windows<sup>(R)</sup> command-line shell or PowerShell then try using Cygwin<sup>(R)</sup> to install Sunbird on your desktop or laptop.
+These instructions install Sunbird version 1.9. The code examples provided here are Linux based. For installation on WINDOWS<sup>(R)</sup> it is suggested that you use a Linux like command line terminal emulator like Git Bash.
 
 1. Launch a command-line terminal
 
-1. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
+2. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon**, **gulp** and **ng** are located. 
 > If you are unable to find an executable with the name **node**, check for **nodejs**
 
 3. Change the directory into the folder that you have designated as the top level folder of the Sunbird application
 
-3. Clone the Sunbird portal github repository using the following command:
+4. Clone the Sunbird portal github repository using the following command:
 
     ```
     git clone https://github.com/project-sunbird/sunbird-portal.git
     ```
     
-3. Checkout the files tagged with version 1.9 using the following commands:
+5. Checkout the files tagged with version 1.9 using the following commands:
 
     ```
     cd sunbird-portal
     git checkout tags/v1.9 -b 1.9
     ```
     
-3. Build the nodejs packages that are required by the Sunbird application using the following commands:
+6. Build the nodejs packages that are required by the Sunbird application using the following commands:
 
     ```
     cd src/app
-    gulp download:editors
     npm install
+    gulp download:editors
     cd client
     npm install
     ```
+    The both the install commands will take a while to complete.
 
 ## Configuring the Environment & Services Stack
 
@@ -95,9 +100,9 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 |  sunbird_default_channel  | sunbird |   string  |
 |  sunbird_default_tenant   | sunbird |   string  |
 
-> The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
+> In Linux, the initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
-2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
+2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
@@ -124,20 +129,20 @@ These instructions install Sunbird version 1.9. The code examples provided here 
     nodemon
     ```
     
-1. Wait for the following message before proceeding to the next step 
+2. Wait for the following message before proceeding to the next step 
 
     ```
     [nodemon] clean exit - waiting for changes before restart
     ```
     
-1. Open a new commmand-line window and run the application server and populate the following system environment variables once again
+3. Open a new commmand-line window and and populate the following system environment variables once again
 
-| Environment Variable Name |  Value  | Data Type |
-|---------------------------|---------|-----------|
-|  sunbird_environment      | local   |   string  |
-|  sunbird_instance         | sunbird |   string  |
-|  sunbird_default_channel  | sunbird |   string  |
-|  sunbird_default_tenant   | sunbird |   string  |
+  | Environment Variable Name |  Value  | Data Type |
+  |---------------------------|---------|-----------|
+  |  sunbird_environment      | local   |   string  |
+  |  sunbird_instance         | sunbird |   string  |
+  |  sunbird_default_channel  | sunbird |   string  |
+  |  sunbird_default_tenant   | sunbird |   string  |
 
 4. Run the following commands to change to the application directory and start the server
     
@@ -145,8 +150,14 @@ These instructions install Sunbird version 1.9. The code examples provided here 
     cd sunbird-portal/src/app
     node server.js
     ```
+   Wait till you see something like this
+   
+   ```
+   Telemetry is initialized.
+   app running on port 3000
+   ```
     
-4. Launch the Google Chrome browser and navigate to
+5. Launch the Google Chrome browser and navigate to
 
     ```
     http://localhost:3000
